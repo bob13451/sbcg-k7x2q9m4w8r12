@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0e0e0e">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="SiarakasBCG">
+<title>SiarakasBCG</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- PIN lock -->
+<div id="lock" class="lock" hidden>
+  <img src="icon-192.png" alt="" class="lock-logo">
+  <div class="lock-title" id="lockTitle">Enter PIN</div>
+  <div class="dots" id="pinDots"><i></i><i></i><i></i><i></i></div>
+  <div class="lock-err" id="lockErr"></div>
+  <div class="keypad" id="keypad"></div>
+</div>
+
+<!-- Main app -->
+<div id="app">
+
+  <!-- HOME -->
+  <section id="homeScreen" class="screen">
+    <header class="home-top">
+      <img src="icon-192.png" alt="" class="brand-logo">
+      <div class="brand-name">SiarakasBCG</div>
+      <button class="icon-btn" id="btnSearchHome" aria-label="Search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg>
+      </button>
+      <button class="icon-btn" id="btnSettings" aria-label="Settings">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg>
+      </button>
+    </header>
+    <div class="scroll">
+      <div class="tiles">
+        <button class="tile dark" id="tileCal">
+          <span class="tile-ico"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span>
+          <span class="tile-txt"><b>Calendar</b><small id="subDate"></small><small id="subCal"></small></span>
+        </button>
+        <button class="tile dark" id="tileJobs">
+          <span class="tile-ico"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h4l2 2.5h8a2 2 0 012 2V18a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></span>
+          <span class="tile-txt"><b>Jobs</b><small id="subJobs"></small></span>
+        </button>
+        <button class="tile gold wide" id="tileMoney">
+          <span class="tile-ico"><svg viewBox="0 0 24 24"><path d="M18 6.6a6.4 6.4 0 100 10.8M4.5 10.3h9M4.5 13.7h9"/></svg></span>
+          <span class="tile-txt"><b>Money</b><span class="big" id="moneyBig">€0</span><small id="moneySub"></small></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALENDAR -->
+  <section id="calScreen" class="screen" hidden>
+    <header class="top">
+      <div class="l"><button class="icon-btn" id="backCal" aria-label="Back to home"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button></div>
+      <button class="title" id="btnTitle" aria-label="Pick month and year">
+        <span id="titleMonth">October</span> <span id="titleYear">2026</span>
+        <svg viewBox="0 0 24 24" class="caret"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="r"><button class="icon-btn" id="btnSearch" aria-label="Search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg>
+      </button></div>
+    </header>
+
+    <div id="banner" class="banner" hidden></div>
+
+    <main>
+      <div class="nav-row">
+        <button class="nav-btn" id="prev" aria-label="Previous month">&#8249;</button>
+        <button class="today-btn" id="btnToday">Today</button>
+        <button class="nav-btn" id="next" aria-label="Next month">&#8250;</button>
+      </div>
+      <div class="weekdays" id="weekdays"></div>
+      <div class="grid" id="grid"></div>
+      <div class="legend">
+        <span><i class="d planned"></i>Planned</span>
+        <span><i class="d progress"></i>In progress</span>
+        <span><i class="d done"></i>Done</span>
+      </div>
+    </main>
+  </section>
+
+  <!-- JOBS -->
+  <section id="jobsScreen" class="screen" hidden>
+    <header class="top">
+      <div class="l"><button class="icon-btn" id="backJobs" aria-label="Back to home"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button></div>
+      <h1 class="ttl">Jobs</h1>
+      <div class="r"><button class="icon-btn" id="btnSearchJobs" aria-label="Search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg>
+      </button></div>
+    </header>
+    <div class="chips" id="jobChips"></div>
+    <div class="scroll"><div class="jgrid" id="jobsGrid"></div></div>
+    <button class="fab" id="btnNewJob" aria-label="Add job"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+  </section>
+
+  <!-- MONEY -->
+  <section id="moneyScreen" class="screen" hidden>
+    <header class="top">
+      <div class="l"><button class="icon-btn" id="backMoney" aria-label="Back to home"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button></div>
+      <h1 class="ttl">Money</h1>
+      <div class="r"></div>
+    </header>
+    <div class="scroll" id="moneyBody"></div>
+  </section>
+
+</div>
+
+<!-- Modal layer -->
+<div id="layer"></div>
+<div id="toast" class="toast" hidden></div>
+
+<input type="file" id="fileBefore" accept="image/*" multiple hidden>
+<input type="file" id="fileAfter" accept="image/*" multiple hidden>
+<input type="file" id="fileOther" accept="image/*" multiple hidden>
+<input type="file" id="fileBackup" accept=".json,application/json" hidden>
+
+<script src="app.js"></script>
+</body>
+</html>
